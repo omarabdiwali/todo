@@ -6,3 +6,6 @@ When it loads, it checkes if you have any items in your local storage that corre
 to the key 'todos'. If there is, it sets your items to that, or an empty array. 
 The objects have 2 keys, one is called checked, and the other is item. You can check off 
 the item, add another, and remove them.
+
+
+## Website: https://todo-omarabdiwali.vercel.app/
