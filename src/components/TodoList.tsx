@@ -50,7 +50,14 @@ export default function CheckboxList() {
   const handleToggle = (value: number, item: string) => () => {
     const todoItem = items[value];
     const currentIndex = l.indexOf(item);
-    const newChecked = [...l];
+    let newChecked: string[] = [];
+
+    if (checked.length === 0) {
+      newChecked = [...l];
+    }
+    else {
+      newChecked = [...checked];
+    }
 
     let newList = items;
     todoItem.checked = !todoItem.checked;
