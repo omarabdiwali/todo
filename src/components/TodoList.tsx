@@ -31,7 +31,7 @@ interface Todo {
   checked: boolean
 }
 
-export default function CheckboxList() {
+export default function TodoApp() {
   const classes = useStyles();
   const initialState: Todo[] = [];
   const [checked, setChecked] = useState([""]);
