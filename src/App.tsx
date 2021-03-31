@@ -1,10 +1,10 @@
 import React from 'react';
-import CheckboxList from './components/TodoList';
+import TodoApp from './components/TodoList';
 
 function App() {
   return (
     <div className="App">
-      <CheckboxList />
+      <TodoApp />
     </div>
   );
 }
