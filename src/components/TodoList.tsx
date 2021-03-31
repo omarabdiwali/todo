@@ -34,9 +34,9 @@ interface Todo {
 export default function TodoApp() {
   const classes = useStyles();
   const initialState: Todo[] = [];
-  const [checked, setChecked] = useState([""]);
+  const [checked, setChecked] = useState<number[]>([]);
   const [items, setItems] = useState(initialState);
-  let l : string[] = [];
+  let l : number[] = [];
   
   const [todo, setTodo] = useState("");
 
@@ -47,10 +47,10 @@ export default function TodoApp() {
     };
   }, [])
 
-  const handleToggle = (value: number, item: string) => () => {
+  const checkBox = (value: number) => () => {
     const todoItem = items[value];
-    const currentIndex = l.indexOf(item);
-    let newChecked: string[] = [];
+    const currentIndex = l.indexOf(value);
+    let newChecked: number[] = [];
 
     if (checked.length === 0) {
       newChecked = [...l];
@@ -65,7 +65,7 @@ export default function TodoApp() {
     newList.splice(value, 1, todoItem);
 
     if (currentIndex === -1) {
-      newChecked.push(item);
+      newChecked.push(value);
     }
     else {
       newChecked.splice(currentIndex, 1);
@@ -92,8 +92,9 @@ export default function TodoApp() {
   function addItem() {
     const removeSpaces = todo.replace(/ /g, "");
     if (removeSpaces.length !== 0) {
-      setItems([...items, { item: todo, checked: false }])
-      window.localStorage.setItem("todos", JSON.stringify(items));
+      const newItems = [...items, { item: todo, checked: false }]
+      setItems(newItems);
+      window.localStorage.setItem("todos", JSON.stringify(newItems));
     }
     setTodo("");
   }
@@ -119,7 +120,7 @@ export default function TodoApp() {
           value={todo}
           onChange={onChangeText}
         />
-        <Fab style={{ float: "right", margin: 32, marginRight: window.innerWidth > 500 ? "10%" : "0%"}} onClick={addItem}>
+        <Fab size={window.innerWidth > 500 ? "large" : "medium"} style={{ float: "right", margin: 32, marginRight: window.innerWidth > 500 ? "10%" : "1%"}} onClick={addItem}>
           <AddIcon />
         </Fab>
       </form>
@@ -128,15 +129,14 @@ export default function TodoApp() {
         {items.length > 0 ? items.map((value: Todo, i :number) => {
           const labelId = `checkbox-list-label-${value}`;
           if (value.checked) {
-            l.push(value.item);
+            l.push(i);
           }
-
           return (
-            <ListItem key={i} role={undefined} button onClick={handleToggle(i, value.item)}>
+            <ListItem key={i} role={undefined} button onClick={checkBox(i)}>
               <ListItemIcon>
                 <Checkbox
                   edge="start"
-                  checked={l.indexOf(value.item) !== -1}
+                  checked={l.indexOf(i) !== -1}
                   tabIndex={-1}
                   disableRipple
                   inputProps={{ 'aria-labelledby': labelId }}
