@@ -33,9 +33,9 @@ interface Todo {
 
 export default function TodoApp() {
   const classes = useStyles();
-  const initialState: Todo[] = [];
+  // const initialState: Todo[] = [];
   const [checked, setChecked] = useState<number[]>([]);
-  const [items, setItems] = useState(initialState);
+  const [items, setItems] = useState<Todo[]>([]);
   let l : number[] = [];
   
   const [todo, setTodo] = useState("");
